@@ -1,4 +1,0 @@
-<div class="grid_4">
-  <h3>{{ datakeys.upper() }} <span id="{{ datakeys }}-progress-span">{{datavals}}%</span></h3>
-  <progress id="{{ datakeys }}-progress-bar" max="100" value="{{ datavals }}"></progress>
-</div>
