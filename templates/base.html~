@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Server Monitor Mach1</title>
+<link rel="stylesheet" href="{{ static_url("css/bootstrap.css") }}" />
+<style type="text/css">
+body {background:#000; color: #a2e8ff;}
+h3 {background:#212529; color: #fff; margin-bottom: 8px; letter-spacing: 1.8pt;}
+strong {color: #fff;}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  
+  <h1><a href="/">Server Monitor Mach1</a></h1>
+
+
+<div class="row">
+
+  {% block body %}{% end %}
+
+</div>
+
+  
+
+</div>
+
+<script src="{{ static_url("js/jquery-1.7.2.min.js") }}"></script>
+<script src="{{ static_url("js/loadstats2.js") }}"></script>
+
+</body>
+</html>

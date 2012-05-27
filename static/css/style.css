@@ -1,0 +1,99 @@
+.clear {
+    clear: both;
+}
+
+body { 
+    background:#000; 
+    color: #a2e8ff;
+    font-family: arial;
+}
+
+#container { 
+    width: 960px;
+    margin: auto;
+    /* background-color: #eee; */
+}
+
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 6px 0 12px 0;
+} 
+
+h1 a {
+    color: #eee;
+    text-decoration: none;
+}
+
+.grid_4 {
+    display: inline;
+    width: 220px;
+    float: left;
+    margin: 10px;
+}
+
+#index-progress-bars h3 {
+    font-size: 12pt;
+    color: #fff; 
+    margin-bottom:12px; 
+    letter-spacing: 1.8pt;
+    font-weight: bold;
+    padding: 6px 0;
+}
+
+#index-progress-bars span {
+    font-weight: bold;
+    float: right;
+}
+
+#cpu-progress-span {
+    color: #CB513A;
+}
+
+#disk-progress-span {
+    color: #73C03A;
+}
+
+#memory-progress-span {
+    color: #4682B4;
+}
+
+#virtual-progress-span {
+    color: #65B9AC;
+}
+
+progress,          /* All HTML5 progress enabled browsers */
+progress[role]     /* polyfill */
+{
+	/* Turns off styling - not usually needed, but good to know. */
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+
+	/* gets rid of default border in Firefox and Opera. */
+	/* border: none; */
+
+	/* Needs to be in here for Safari polyfill so background images work as expected. */
+	background-size: auto;
+
+	/* Dimensions */
+	width: 216px;
+	height: 12px;
+
+}
+
+/* Polyfill */
+progress[role]:after {
+	background-image: none; /* removes default background from polyfill */
+}
+
+/* Ensure fallback text doesn't appear in polyfill */
+progress[role] strong {
+	display: none;
+}
+
+#graph {
+    margin: 24px 0;
+    background: #021026;
+    outline: 1px solid #eee;
+}

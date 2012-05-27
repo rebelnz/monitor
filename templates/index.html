@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div id="index-progress-bars">
+{% for k,v in sorted(progress_data.iteritems()) %}
+  {% module ProgressModule(k,v) %}
+{% end %}
+</div>
+
+<div class="clear"></div>
+
+<div>
+  {% module GraphModule() %}
+</div>
+
+<div class="clear"></div>
+
+<!-- for progress bars data -->
+<script src="{{ static_url("js/loadprogress.js") }}"></script>
+
+{% end %}
+
