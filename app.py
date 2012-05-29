@@ -21,6 +21,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/",IndexHandler),
             (r"/progress",ProgressHandler),            
+            (r"/process",ProcessHandler),            
             ]
         
         settings = dict(
@@ -42,21 +43,41 @@ class PsutilStats(object):
         progress_data['disk'] = [psutil.disk_usage('/').percent]        
         return progress_data
 
+    def getProcessList(self):
+        return psutil.get_process_list()
+
+    def getTopProcesses(self):
+        m = {}
+        for x in psutil.get_process_list():
+            cpu_time = x.get_cpu_times()[1]
+            if not cpu_time:
+                continue
+            k = x.pid; v = {"name":x.name,"cpu_time":cpu_time}
+            m[k] = v
+        p = m.items()
+        p.sort(key=lambda x:x[1]["cpu_time"])
+        return p
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):    
-    
         progress_data = self.application.psutilstats.loadProgressData();
-
-        self.render('index.html',
+        process_list = self.application.psutilstats.getProcessList();
+        self.render('index.html', 
                     progress_data = progress_data,
-                    )             
+                    process_list= process_list,
+                    )
 
 
 class ProgressHandler(tornado.web.RequestHandler):
     def get(self):
-        progress_data = self.application.psutilstats.loadProgressData();
+        progress_data = self.application.psutilstats.loadProgressData()
         self.write(simplejson.dumps(progress_data))
+
+
+class ProcessHandler(tornado.web.RequestHandler):
+    def get(self):
+        top_processes = self.application.psutilstats.getTopProcesses()
+        self.write(simplejson.dumps(top_processes))
 
 
 if __name__ == '__main__':
