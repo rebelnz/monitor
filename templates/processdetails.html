@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+<ul>
+{% if process_details != 'denied' %} 
+  <li><strong>Name </strong>{{ process_details.name }}</li>
+  <li><strong>User </strong> {{ process_details.username }}</li>
+  <li><strong>CWD </strong> {{ process_details.getcwd() }}</li>
+  <li><strong>EXE </strong> {{ process_details.exe }}</li>
+  <li><strong>Stat </strong> {{ str(process_details.status) }}</li>
+  {% else %}
+<li>{{ process_details }}</li>
+{% end %}
+</ul>
+
+
+{% end %}
+

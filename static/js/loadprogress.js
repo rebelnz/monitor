@@ -1,10 +1,6 @@
 window.onload = function() {
 	graphProcess();
 }
-
-// this should be more modular... 
-// graph stuff jas been thrown in to 
-// utilise the existing GET request
 	
 	function graphProcess() {
 		

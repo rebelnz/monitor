@@ -4,8 +4,12 @@
 
 body { 
     background:#000; 
-    color: #a2e8ff;
+    color: #CECECE;
     font-family: arial;
+}
+
+a {
+    color: #88B2E2;
 }
 
 #container { 
@@ -13,6 +17,7 @@ body {
     margin: auto;
     /* background-color: #eee; */
 }
+
 
 h1 {
     font-size: 24pt;
@@ -46,21 +51,6 @@ h1 a {
     float: right;
 }
 
-#cpu-progress-span {
-    color: #CB513A;
-}
-
-#disk-progress-span {
-    color: #73C03A;
-}
-
-#memory-progress-span {
-    color: #4682B4;
-}
-
-#virtual-progress-span {
-    color: #65B9AC;
-}
 
 progress,          /* All HTML5 progress enabled browsers */
 progress[role]     /* polyfill */
@@ -96,4 +86,18 @@ progress[role] strong {
     margin: 24px 0;
     background: #021026;
     outline: 1px solid #eee;
+}
+
+#top-processes {
+    font-size: 10pt;
+    margin: 12px 0 0 0;
+    width: 280px;
+}
+
+#top-processes li {
+    margin: 2px 0 ;
+}
+
+#top-processes span {
+    float: right;;
 }
