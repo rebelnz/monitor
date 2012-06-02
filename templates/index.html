@@ -2,29 +2,36 @@
 
 {% block body %}
 
-<div id="index-progress-bars">
-{% for k,v in sorted(progress_data.iteritems()) %}
-  {% module ProgressModule(k,v) %}
+<div id="index-summary">
+{% for k,v in sorted(summary_data.iteritems()) %}
+  {% module SummaryModule(k,v) %}
 {% end %}
 </div>
 
 <div class="clear"></div>
 
-<div>
-  {% module GraphModule() %}
-</div>
-
-<div class="clear"></div>
-
-
-<div class="clear"></div>
 <button onclick="updateTopProcess()">TOP PROCESSES</button>
 
-<ul id="top-processes"></ul>
+<div class="clear"></div>
+
+<div class="grid_2">
+<ul id="process-list">
+</ul>
+</div>
+
+<div class="grid_2">
+<div id="detail-list">
+</div>
+</div>
+
+
+
+<div class="clear"></div>
 
 <!-- for progress bars data -->
-<script src="{{ static_url("js/loadprogress.js") }}"></script>
-<script src="{{ static_url("js/loadtopprocess.js") }}"></script>
+<script src="{{ static_url("js/common.js") }}"></script>
+<script src="{{ static_url("js/summary.js") }}"></script>
+<script src="{{ static_url("js/topprocess.js") }}"></script>
 
 {% end %}
 

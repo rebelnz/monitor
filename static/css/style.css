@@ -2,8 +2,12 @@
     clear: both;
 }
 
+html {
+    overflow-y:scroll;
+}
+
 body { 
-    background:#000; 
+    background:#000;
     color: #CECECE;
     font-family: arial;
 }
@@ -17,7 +21,6 @@ a {
     margin: auto;
     /* background-color: #eee; */
 }
-
 
 h1 {
     font-size: 24pt;
@@ -37,19 +40,63 @@ h1 a {
     margin: 10px;
 }
 
-#index-progress-bars h3 {
-    font-size: 12pt;
-    color: #fff; 
-    margin-bottom:12px; 
-    letter-spacing: 1.8pt;
-    font-weight: bold;
-    padding: 6px 0;
+.grid_2 {
+    display: inline;
+    width: 440px;
+    float: left;
+    margin: 10px;
 }
 
-#index-progress-bars span {
+#index-summary-bars h3 {
+    font-size: 10pt;
+    color: #fff; 
+    margin-bottom: 6px; 
+    letter-spacing: 1.8pt;
+    font-weight: bold;
+    padding: 6px 2px;
+}
+
+#index-summary-bars span {
     font-weight: bold;
     float: right;
 }
+
+#process-list {
+    font-size: 10pt;
+    width: 280px;
+}
+
+#process-list li {
+    margin: 4px 0 ;
+}
+
+#process-list span {
+    float: right;;
+}
+
+.circle-canvas {
+    width: 218px;
+    border: 1px solid #eee;
+    background: #000C11;
+}
+
+
+#detail-list ul li {
+    font-weight: bold;
+}
+
+#detail-list ul li ul {
+    margin: 0 0 12px 0;
+}
+
+#detail-list ul li ul li {
+    font-weight: normal;
+}
+
+#detail-list ul li ul {
+    margin: 0 0 0 24px;
+}
+
 
 
 progress,          /* All HTML5 progress enabled browsers */
@@ -68,7 +115,7 @@ progress[role]     /* polyfill */
 
 	/* Dimensions */
 	width: 216px;
-	height: 12px;
+	height: 8px;
 
 }
 
@@ -82,22 +129,4 @@ progress[role] strong {
 	display: none;
 }
 
-#graph {
-    margin: 24px 0;
-    background: #021026;
-    outline: 1px solid #eee;
-}
 
-#top-processes {
-    font-size: 10pt;
-    margin: 12px 0 0 0;
-    width: 280px;
-}
-
-#top-processes li {
-    margin: 2px 0 ;
-}
-
-#top-processes span {
-    float: right;;
-}
