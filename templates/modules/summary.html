@@ -1,5 +1,7 @@
+{% if datakeys != 'uptime' %}
 <div class="grid_4">
   <h3>{{ datakeys.upper() }} <span id="{{ datakeys }}-summary-span">{{datavals[0]}}%</span></h3>
   <canvas class= "circle-canvas" id="{{ datakeys }}-stats-canvas"></canvas>
   <progress id="{{ datakeys }}-summary-bar" max="100" value="{{ datavals[0] }}"></progress>
 </div>
+{% end %}

@@ -51,7 +51,7 @@ function reloadProgress(pData) {
 			'<li>' + pData[i][1]['name'] + ' ' + 
 			'PID ' + pData[i][1]['pid'] + ' ' +
 			'CPU Time ' + pData[i][1]['cpu_time'] + ' ' +
-			'<span onclick="showDetails(' + pData[i][1]['pid'] +')">Details</span></li>';
+			'<button class="small-btn btn-dark" onclick="showDetails(' + pData[i][1]['pid'] +')">Details</button></li>';
 	}
 
 }

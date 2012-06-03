@@ -2,6 +2,10 @@
 
 {% block body %}
 
+<h5 id="uptime">{{ uptime }}</h5>
+
+<div class="clear"></div>
+
 <div id="index-summary">
 {% for k,v in sorted(summary_data.iteritems()) %}
   {% module SummaryModule(k,v) %}
@@ -10,8 +14,7 @@
 
 <div class="clear"></div>
 
-<button onclick="updateTopProcess()">TOP PROCESSES</button>
-
+<button class="large-btn btn-dark" onclick="updateTopProcess()">TOP PROCESSES</button>
 <div class="clear"></div>
 
 <div class="grid_2">
@@ -19,12 +22,11 @@
 </ul>
 </div>
 
+
 <div class="grid_2">
 <div id="detail-list">
 </div>
 </div>
-
-
 
 <div class="clear"></div>
 

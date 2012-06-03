@@ -6,6 +6,13 @@ html {
     overflow-y:scroll;
 }
 
+/* light */
+body { 
+    color: #444;
+    font-family: arial;
+}
+
+/* dark */
 body { 
     background:#000;
     color: #CECECE;
@@ -26,7 +33,8 @@ h1 {
     font-size: 24pt;
     font-weight: bold;
     margin: 6px 0 12px 0;
-} 
+}
+ 
 
 h1 a {
     color: #eee;
@@ -42,12 +50,18 @@ h1 a {
 
 .grid_2 {
     display: inline;
-    width: 440px;
+    width: 460px;
     float: left;
     margin: 10px;
 }
 
-#index-summary-bars h3 {
+#uptime {
+    font-size: 16pt;
+    margin: auto 0;
+}
+    
+
+#index-summary h3 {
     font-size: 10pt;
     color: #fff; 
     margin-bottom: 6px; 
@@ -56,22 +70,36 @@ h1 a {
     padding: 6px 2px;
 }
 
-#index-summary-bars span {
+#index-summary span {
     font-weight: bold;
     float: right;
 }
 
+.btn-dark {
+    background: #000;
+    color: #eee;
+}
+
+.small-btn {
+    padding: 2px;
+}
+
+.large-btn {
+    padding: 4px;
+    margin: 8px 0 0 12px;
+}
+
 #process-list {
-    font-size: 10pt;
-    width: 280px;
+    width: 340px;
 }
 
 #process-list li {
-    margin: 4px 0 ;
+    margin: 12px 0 ;
+    font-size: 12pt;
 }
 
-#process-list span {
-    float: right;;
+#process-list button {
+    float: right;
 }
 
 .circle-canvas {
@@ -79,7 +107,6 @@ h1 a {
     border: 1px solid #eee;
     background: #000C11;
 }
-
 
 #detail-list ul li {
     font-weight: bold;
