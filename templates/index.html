@@ -2,7 +2,24 @@
 
 {% block body %}
 
-<h5 id="uptime">{{ uptime }}</h5>
+<div class="grid_2">
+<h1 id="test-h1"><a href="/">Server Monitor Mach1</a></h1>
+</div>
+
+
+<div class="grid_2">
+
+  <h3 id="system">
+  <span>SYSTEM: </span>{{ platform[0] }}
+  <span>RELEASE: </span>{{ platform[2] }}
+  <span>PROCESSOR: </span>{{ platform[4] }}
+  <span>NODE: </span>{{ platform[1] }}
+  </h3>
+
+  <h3 id="uptime">{{ uptime }}</h3>
+
+</div>
+
 
 <div class="clear"></div>
 
@@ -14,7 +31,10 @@
 
 <div class="clear"></div>
 
-<button class="large-btn btn-dark" onclick="updateTopProcess()">TOP PROCESSES</button>
+<button class="large-btn btn-dark" onclick="updateTopProcess(10)">TOP 10 PROCESSES</button>
+<button class="large-btn btn-dark" onclick="updateTopProcess('ALL')">ALL PROCESSES</button>
+<button class="large-btn btn-dark" onclick="clearTopProcess()">CLEAR PROCESSES</button>
+
 <div class="clear"></div>
 
 <div class="grid_2">

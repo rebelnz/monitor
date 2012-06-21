@@ -10,10 +10,8 @@ function showDetails(pid) {
 		
 			var responseHeaders = req.getAllResponseHeaders();
 			var detailData = req.responseText;
-			var detailDataJSON= parseData(detailData);
-			
-			var detailListDiv = document.getElementById("detail-list");	
-			
+			var detailDataJSON= parseData(detailData);			
+			var detailListDiv = document.getElementById("detail-list");				
 			var detailListHTML = objToHtmlList(detailDataJSON); 
 			detailListDiv.innerHTML = '';
 			detailListDiv.appendChild(detailListHTML);
@@ -25,20 +23,22 @@ function showDetails(pid) {
 	req.send(null);		
 }
 
-function updateTopProcess () { 
+function updateTopProcess (limit) { 
+
 	var url = '/topprocess';
+	var params = ['limit=' + limit];
+
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
 		if (req.readyState === 4) {
 			var responseHeaders = req.getAllResponseHeaders();
 			var progressData = req.responseText;
 			var progressDataJSON = parseData(progressData);
-			//console.log(progressData['mem'])
 			reloadProgress(progressDataJSON);
 		}
 	};
 
-	req.open('GET', url ,true);
+	req.open('GET', url + '?' + params.join('&'), true);	
 	req.setRequestHeader('X-Requested-With','XMLHttpRequest');
 	req.send(null);
 }
@@ -55,3 +55,9 @@ function reloadProgress(pData) {
 	}
 
 }
+
+function clearTopProcess() {
+	var procList = document.getElementById("process-list");	
+	procList.innerHTML = '';
+}	
+

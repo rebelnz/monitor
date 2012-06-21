@@ -32,15 +32,33 @@ a {
 h1 {
     font-size: 24pt;
     font-weight: bold;
-    margin: 6px 0 12px 0;
+    margin: 0 0 12px 0;
 }
  
-
 h1 a {
     color: #eee;
     text-decoration: none;
 }
 
+h3 {
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: right;
+}
+
+#uptime {
+    text-transform: uppercase;
+}
+
+#system {
+    margin: 0 0 4px 0;
+}
+
+#system span {
+    color:#fff;
+    font-size: 8pt;
+} 
+    
 .grid_4 {
     display: inline;
     width: 220px;
@@ -53,13 +71,7 @@ h1 a {
     width: 460px;
     float: left;
     margin: 10px;
-}
-
-#uptime {
-    font-size: 16pt;
-    margin: auto 0;
-}
-    
+}    
 
 #index-summary h3 {
     font-size: 10pt;
@@ -68,6 +80,7 @@ h1 a {
     letter-spacing: 1.8pt;
     font-weight: bold;
     padding: 6px 2px;
+    text-align: left;
 }
 
 #index-summary span {
@@ -80,6 +93,11 @@ h1 a {
     color: #eee;
 }
 
+.btn-dark:hover {
+    background: #eee;
+    color: #444;
+}
+
 .small-btn {
     padding: 2px;
 }
@@ -90,12 +108,12 @@ h1 a {
 }
 
 #process-list {
-    width: 340px;
+    width: 448px;
 }
 
 #process-list li {
-    margin: 12px 0 ;
-    font-size: 12pt;
+    margin: 14px 0;
+    font-size: 11pt;
 }
 
 #process-list button {
@@ -103,9 +121,15 @@ h1 a {
 }
 
 .circle-canvas {
+    height: 112px;
     width: 218px;
     border: 1px solid #eee;
     background: #000C11;
+}
+
+.circle-canvas:hover {
+    background: #000;
+    cursor: pointer;
 }
 
 #detail-list ul li {
@@ -123,7 +147,6 @@ h1 a {
 #detail-list ul li ul {
     margin: 0 0 0 24px;
 }
-
 
 
 progress,          /* All HTML5 progress enabled browsers */

@@ -1,7 +1,5 @@
-import psutil
-import os
-import commands
 import simplejson
+import os
 
 import tornado.web
 import tornado.httpserver
@@ -9,6 +7,7 @@ import tornado.ioloop
 import tornado.options
 
 import uimodules
+from psstats import PsutilStats
 
 from tornado.options import define,options
 
@@ -35,66 +34,39 @@ class Application(tornado.web.Application):
         
         tornado.web.Application.__init__(self,handlers,**settings)
 
-class PsutilStats(object):
-
-    def loadUptime(self):
-        x = commands.getoutput('uptime')
-        return x
-        
-    def loadSummaryData(self):
-        summary_data = {}
-        summary_data['cpu'] = [psutil.cpu_percent()]
-        summary_data['memory'] = [psutil.phymem_usage().percent]
-        summary_data['virtual'] = [psutil.virtmem_usage().percent]
-        summary_data['disk'] = [psutil.disk_usage('/').percent]        
-        summary_data['uptime'] = commands.getoutput('uptime')
-        return summary_data
-
-    def getTopProcesses(self,limit=10):
-        m = {}
-        for x in psutil.get_process_list():
-            cpu_time = x.get_cpu_times()[1]
-            if not cpu_time:
-                continue
-            k = x.pid; v = {"pid":x.pid, "name":x.name, "cpu_time":cpu_time}
-            m[k] = v
-        p = m.items()
-        p.sort(key= lambda x: x[1]["cpu_time"],reverse=True)
-        return p[0:limit]
-
-    def getProcessDetails(self,pid):
-        x = psutil.Process(pid)
-        try:
-            process_details = {}
-            process_details['Status'] = str(x.status)
-            process_details['Username'] = x.username
-            process_details['Terminal'] = x.terminal
-            process_details['IO Count'] = x.get_io_counters()
-            process_details['CPU Times'] = x.get_cpu_times()
-            process_details['Threads'] = x.get_threads()
-            process_details['Memory'] = x.get_memory_info()
-            process_details['Connections'] = x.get_connections()
-        except: process_details = 'denied' #permissions
-        # return x
-        return process_details
-
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):    
         summary_data = self.application.psutilstats.loadSummaryData();
         uptime = self.application.psutilstats.loadUptime();
+        platform = self.application.psutilstats.loadPlatform();
+        df = self.application.psutilstats.loadDf();
         self.render('index.html', 
                     summary_data = summary_data, 
-                    uptime = uptime)
+                    uptime = uptime,
+                    platform = platform,
+                    df = df)
 
 class SummaryHandler(tornado.web.RequestHandler):
     def get(self):
         summary_data = self.application.psutilstats.loadSummaryData()
         self.write(simplejson.dumps(summary_data))        
 
+
+class SummaryForGraphHandler(tornado.web.RequestHandler):
+    def get(self):
+        summary_data = self.application.psutilstats.loadSummaryData()
+        self.write(simplejson.dumps(summary_data))        
+
+
 class TopProcessHandler(tornado.web.RequestHandler):
     def get(self):
-        top_processes = self.application.psutilstats.getTopProcesses()
+        limit = self.get_argument('limit')
+        if limit == 'ALL':
+            top_processes = self.application.psutilstats.getTopProcesses()
+        else:
+            top_processes = self.application.psutilstats.getTopProcesses(int(limit))
+
         self.write(simplejson.dumps(top_processes))
 
 

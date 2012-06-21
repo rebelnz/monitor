@@ -16,7 +16,7 @@ function parseData(mydata) {
 
 function objToHtmlList(obj) {
 	if (obj instanceof Array) {
-		var ol = document.createElement('ul');
+		var ol = document.createElement('ol');
 		for (var child in obj) {
 			var li = document.createElement('li');
 			li.appendChild(objToHtmlList(obj[child]));
