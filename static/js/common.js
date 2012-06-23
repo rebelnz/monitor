@@ -38,3 +38,32 @@ function objToHtmlList(obj) {
 		return document.createTextNode(obj);
 	}
 }			
+
+
+function ajaxer(url,action,params) {
+
+	// pass a url +
+	// function to run with captured data
+	// (optional) params for url
+ 
+	var req = new XMLHttpRequest();
+	req.onreadystatechange = function() {
+		if (req.readyState === 4) {
+			var responseHeaders		= req.getAllResponseHeaders();
+			var summaryData			= req.responseText;
+			var summaryDataJSON		= parseData(summaryData); //from common.js			
+			action(summaryDataJSON);
+		}
+	};
+	
+	if ( params !== undefined ) {
+		req.open('GET', url + '?' + params.join('&'), true);	
+	} else {
+		req.open('GET', url ,true);		
+	}
+
+	req.setRequestHeader('X-Requested-With','XMLHttpRequest');
+	req.send(null);	
+}
+
+

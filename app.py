@@ -7,7 +7,7 @@ import tornado.ioloop
 import tornado.options
 
 import uimodules
-from psstats import PsutilStats
+from psstats import PsutilStats # module to gather stat info
 
 from tornado.options import define,options
 

@@ -39,6 +39,9 @@ class PsutilStats(object):
 
     def getProcessDetails(self,pid):
         x = psutil.Process(pid)
+        xcuse = """Information about this process is either
+or you lack the proper permissions to view it"""
+
         try:
             process_details = {}
             process_details['Status'] = str(x.status)
@@ -49,6 +52,6 @@ class PsutilStats(object):
             process_details['Threads'] = x.get_threads()
             process_details['Memory'] = x.get_memory_info()
             process_details['Connections'] = x.get_connections()
-        except: process_details = 'denied' #permissions
+        except: process_details = xcuse 
         # return x
         return process_details
