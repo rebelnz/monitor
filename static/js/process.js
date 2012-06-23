@@ -2,7 +2,7 @@
 
 var procList = document.getElementById("process-list");	
 
-var reloader = function reloadProgress(pData) {	
+var reloader = function(pData) {	
 	procList.innerHTML = '';
 	for (var i in pData) {
 		procList.innerHTML += 
@@ -13,7 +13,7 @@ var reloader = function reloadProgress(pData) {
 	}
 };
 
-var dPD = function displayProcessDetails(recievedData) {
+var displayProcessDetails = function (recievedData) {
 	var detailListHTML = objToHtmlList(recievedData); 
 	var detailListDiv = document.getElementById("detail-list");					
 	detailListDiv.innerHTML = '';
@@ -31,7 +31,7 @@ function updateTopProcess (limit) {
 function showDetails(pid) {
 	var url = '/processdetails';
 	var params = ['pid=' + pid];				  
-	ajaxer(url,dPD,params);
+	ajaxer(url,displayProcessDetails,params);
 }
 
 

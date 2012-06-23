@@ -6,7 +6,7 @@ window.onload = function() {
 
 
 // so we can pass the fuction to ajaxer
-var myFunc = function displayData(data) {
+var displayData = function(data) {
 	for (var i in data) {
 		var stat = data[i];						
 		if ( i === 'uptime') { // throw uptime into masthead
@@ -20,7 +20,7 @@ var myFunc = function displayData(data) {
 
 function grabStats() {
 	var url = '/summary';	
-	ajaxer(url,myFunc);	
+	ajaxer(url,displayData);	
 }
 
 
