@@ -107,19 +107,6 @@ h3 {
     margin: 8px 0 0 12px;
 }
 
-#process-list {
-    width: 448px;
-}
-
-#process-list li {
-    margin: 14px 0;
-    font-size: 11pt;
-}
-
-#process-list button {
-    float: right;
-}
-
 .circle-canvas {
     height: 112px;
     width: 218px;
@@ -128,24 +115,16 @@ h3 {
 }
 
 .circle-canvas:hover {
-    background: #000;
+    border: 1px solid #72C4FF;
     cursor: pointer;
 }
 
-#detail-list ul li {
-    font-weight: bold;
-}
-
-#detail-list ul li ul {
-    margin: 0 0 12px 0;
-}
-
-#detail-list ul li ul li {
-    font-weight: normal;
-}
-
-#detail-list ul li ul {
-    margin: 0 0 0 24px;
+.hidden-graph {
+    display: none;
+    height: 112px;
+    width: 218px;
+    border: 1px solid #eee;
+    background: #eee;
 }
 
 
@@ -178,5 +157,33 @@ progress[role]:after {
 progress[role] strong {
 	display: none;
 }
+
+#process-list {
+    width: 448px;
+}
+
+#process-list li {
+    margin: 14px 0;
+    font-size: 11pt;
+}
+
+#process-list button {
+    float: right;
+}
+
+#detail-list ul li {
+    font-weight: bold;
+}
+
+#detail-list ul li ul {
+    margin: 0 0 0 24px;
+}
+
+#detail-list ul li ul li {
+    font-weight: normal;
+}
+
+
+
 
 

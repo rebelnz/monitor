@@ -1,15 +1,17 @@
 import simplejson
 import os
+from sqlite3 import connect
 
 import tornado.web
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 
+from tornado.options import define,options
+
 import uimodules
 from psstats import PsutilStats # module to gather stat info
 
-from tornado.options import define,options
 
 define('port', default=8888, help="Run on port", type=int)
 
@@ -32,20 +34,32 @@ class Application(tornado.web.Application):
             debug = True
             )
         
+        stats_db = os.path.join(os.path.dirname(__file__),'data/stats.db')
+        conn = connect(stats_db)
+        self.db = conn.cursor()
+        
         tornado.web.Application.__init__(self,handlers,**settings)
 
 
 class IndexHandler(tornado.web.RequestHandler):
+    @property
+    def db(self):
+        return self.application.db
+
     def get(self):    
         summary_data = self.application.psutilstats.loadSummaryData();
-        uptime = self.application.psutilstats.loadUptime();
+        uptime = self.application.psutilstats.loadCommandUptime();
         platform = self.application.psutilstats.loadPlatform();
-        df = self.application.psutilstats.loadDf();
+        df = self.application.psutilstats.loadCommandDf();
+
+        testdata = self.db.execute("SELECT disk, timestamp FROM stats")
+
         self.render('index.html', 
                     summary_data = summary_data, 
                     uptime = uptime,
                     platform = platform,
-                    df = df)
+                    df = df,
+                    stats_data = testdata.fetchall())
 
 class SummaryHandler(tornado.web.RequestHandler):
     def get(self):

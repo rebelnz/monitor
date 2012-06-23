@@ -53,6 +53,8 @@ function ajaxer(url,action,params) {
 			var summaryData			= req.responseText;
 			var summaryDataJSON		= parseData(summaryData); //from common.js			
 			action(summaryDataJSON);
+			action = null;
+			summaryDataJSON = null;
 		}
 	};
 	
@@ -61,7 +63,6 @@ function ajaxer(url,action,params) {
 	} else {
 		req.open('GET', url ,true);		
 	}
-
 	req.setRequestHeader('X-Requested-With','XMLHttpRequest');
 	req.send(null);	
 }

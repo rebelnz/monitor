@@ -8,11 +8,11 @@ class PsutilStats(object):
         x = platform.uname()
         return x
 
-    def loadUptime(self):
+    def loadCommandUptime(self):
         x = commands.getoutput('uptime')
         return x
 
-    def loadDf(self):
+    def loadCommandDf(self):
         x = commands.getoutput('df -h')
         return x
         

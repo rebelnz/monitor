@@ -1,29 +1,27 @@
 window.onload = function() {
 	setInterval(grabStats,1000);
-	// hoverGraph(); // in progress
-	// testHover();
+	keyPresser();
+	clickForGraph();
+};
+
+
+// so we can pass the fuction to ajaxer
+var myFunc = function displayData(data) {
+	for (var i in data) {
+		var stat = data[i];						
+		if ( i === 'uptime') { // throw uptime into masthead
+			document.getElementById(i).innerHTML = stat;			
+		} else { 
+			paintCircle(stat, i); // make circles of the rest
+		}		
+	}
 };
 
 
 function grabStats() {
-	
-	// so we can pass the fuction to ajaxer
-	var myFunc = function displayData(data) {
-		for (var i in data) {
-			var stat = data[i];						
-			if ( i === 'uptime') { // throw uptime into masthead
-				document.getElementById(i).innerHTML = stat;			
-			} else { 
-				paintCircle(stat, i); // make circles of the rest
-			}		
-		}
-	};
-
 	var url = '/summary';	
-	ajaxer(url,myFunc);
-	
+	ajaxer(url,myFunc);	
 }
-
 
 
 function paintCircle(stat,item) {
@@ -58,32 +56,72 @@ function paintCircle(stat,item) {
 		ctx.arc(x,y,radius,startAngle,endAngle,clockwise);
 		ctx.stroke();
 	}
-
 }	
 
-
-function hoverGraph() {
-	canvases = document.getElementsByTagName('canvas');
-	for ( var i = 0; i < canvases.length; i++ ) {
-		canvases[i].onmouseover = function() {
-			self = this;
-			summaryItem = self.getAttribute('id').split("-")[0]; //cpu,disk,memory,virtuall
-			//self.removeAttribute('id');
-			//console.log(summaryItem); // = stats-canvas
-			
-			// get last hours(?) worth of stats and make graph 
-
-			var context = self.getContext("2d");
-			context.fillStyle = "rgba(0, 255, 255, .5)";
-			context.fillRect(0,0,300,160);
-		}; 					  
-	}
+function highlightUptime() {	
+	var uptimeH3 = document.getElementById('uptime');
+	uptimeH3.style.color = '#0FE500';
+	setTimeout(function() {
+				   uptimeH3.style.color = "#CECECE";
+			   },2000);
 }
 
-function testHover() {
-	var testList = document.getElementById("uptime"); 
-	if ( testList.mouseover == false ) {
-		console.log(testList);
+function replaceWithGraph(item) {
+
+	var graphDiv = document.getElementById(item+'-hidden-graph');
+	var canvasDiv = document.getElementById(item+'-stats-canvas');
+
+	canvasDiv.style.display = "none";
+	graphDiv.style.display = "block";
+	
+	setTimeout(function() {
+				   canvasDiv.style.display = "block";
+				   graphDiv.style.display = "none";
+			   },3000);
+}
+
+
+function keyPresser() {
+
+	onkeydown = function keyStats(k) {
+
+		var keyPressed = k.which;
+		
+		switch (keyPressed) { 
+		case 67: // c
+			replaceWithGraph('cpu');
+			break;
+			
+		case 68: // d
+			replaceWithGraph('disk');
+		break;
+			
+		case 77: // m
+			replaceWithGraph('memory');
+			break;
+			
+		case 86: // v
+			replaceWithGraph('virtual');
+			break;
+			
+		case 85: // u
+			highlightUptime();
+			break;
+			
+		};
+		
 	};
 }
 
+function clickForGraph() {
+	canvases = document.getElementsByTagName('canvas');
+	for ( var i = 0; i < canvases.length; i++ ) {
+		canvases[i].onclick = function() {
+			self = this;
+			var item = self.getAttribute('id').split("-")[0];
+			replaceWithGraph(item);
+		}; 					  
+	}
+}
+	
+	
