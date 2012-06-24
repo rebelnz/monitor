@@ -20,8 +20,8 @@ class PsutilStats(object):
         summary_data = {}
         summary_data['cpu'] = [psutil.cpu_percent()]
         summary_data['memory'] = [psutil.phymem_usage().percent]
-        summary_data['virtual'] = [psutil.virtmem_usage().percent]
         summary_data['disk'] = [psutil.disk_usage('/').percent]        
+        summary_data['virtual'] = [psutil.virtmem_usage().percent]
         summary_data['uptime'] = commands.getoutput('uptime')
         return summary_data
 

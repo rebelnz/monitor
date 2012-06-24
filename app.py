@@ -25,6 +25,7 @@ class Application(tornado.web.Application):
             (r"/summary",SummaryHandler),            
             (r"/topprocess",TopProcessHandler),            
             (r"/processdetails",ProcessDetailsHandler),            
+            (r"/graphdata",GraphDataHandler),            
             ]
         
         settings = dict(
@@ -41,39 +42,36 @@ class Application(tornado.web.Application):
         tornado.web.Application.__init__(self,handlers,**settings)
 
 
-class IndexHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):    
     @property
     def db(self):
         return self.application.db
 
+
+class IndexHandler(BaseHandler):
     def get(self):    
         summary_data = self.application.psutilstats.loadSummaryData();
         uptime = self.application.psutilstats.loadCommandUptime();
         platform = self.application.psutilstats.loadPlatform();
         df = self.application.psutilstats.loadCommandDf();
-
-        testdata = self.db.execute("SELECT disk, timestamp FROM stats")
-
         self.render('index.html', 
                     summary_data = summary_data, 
                     uptime = uptime,
                     platform = platform,
-                    df = df,
-                    stats_data = testdata.fetchall())
+                    df = df)
 
-class SummaryHandler(tornado.web.RequestHandler):
+class SummaryHandler(BaseHandler):
+    def get(self):
+        summary_data = self.application.psutilstats.loadSummaryData()
+        self.write(simplejson.dumps(summary_data))        
+
+class SummaryForGraphHandler(BaseHandler):
     def get(self):
         summary_data = self.application.psutilstats.loadSummaryData()
         self.write(simplejson.dumps(summary_data))        
 
 
-class SummaryForGraphHandler(tornado.web.RequestHandler):
-    def get(self):
-        summary_data = self.application.psutilstats.loadSummaryData()
-        self.write(simplejson.dumps(summary_data))        
-
-
-class TopProcessHandler(tornado.web.RequestHandler):
+class TopProcessHandler(BaseHandler):
     def get(self):
         limit = self.get_argument('limit')
         if limit == 'ALL':
@@ -84,12 +82,21 @@ class TopProcessHandler(tornado.web.RequestHandler):
         self.write(simplejson.dumps(top_processes))
 
 
-class ProcessDetailsHandler(tornado.web.RequestHandler):
+class ProcessDetailsHandler(BaseHandler):
     def get(self):
         pid = self.get_argument('pid')
         process_details = self.application.psutilstats.getProcessDetails(int(pid))
         # self.render('processdetails.html', process_details = process_details)
         self.write(simplejson.dumps(process_details))
+
+
+class GraphDataHandler(BaseHandler):
+    def get(self):
+        item = self.get_argument('item')
+        data = self.db.execute("SELECT %s, timestamp FROM stats" % item)
+        stats_data = data.fetchall()
+        stats_data[0] = item
+        self.write(simplejson.dumps(stats_data))
 
 
 if __name__ == '__main__':
